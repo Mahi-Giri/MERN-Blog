@@ -35,10 +35,10 @@ const SignUp = () => {
             const data = await response.json();
 
             if (data.success === false) {
+                setLoading(false);
                 return seterrorMessage(data.message);
             }
             
-            setLoading(false);
 
             if (response.ok) {
                 navigate("/sign-in")
@@ -77,7 +77,7 @@ const SignUp = () => {
                         </div>
                         <div>
                             <Label value="Password" />
-                            <TextInput type="password" placeholder="Password" id="password" onChange={handleChange} />
+                            <TextInput type="password" placeholder="********" id="password" onChange={handleChange} />
                         </div>
                         <Button gradientDuoTone="purpleToPink" type="submit" disabled={loading}>
                             {loading ? (
