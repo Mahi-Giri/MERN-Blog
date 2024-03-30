@@ -81,8 +81,6 @@ export const google = async (req, res, next) => {
             const randomString = Math.random().toString(36).substring(7);
             const usernameWithRandom = name + randomString;
 
-            console.log(usernameWithRandom);
-
             const newUser = new User({
                 username: usernameWithRandom,
                 email,
