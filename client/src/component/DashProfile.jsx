@@ -10,6 +10,9 @@ import {
     deleteAccountFailure,
     deleteAccountStart,
     deleteAccountSuccess,
+    signOutFailure,
+    signOutStart,
+    signOutSuccess,
     updateFailure,
     updateStart,
     updateSuccess,
@@ -140,6 +143,24 @@ const DashProfile = () => {
         }
     };
 
+    const handleSignOut = async () => {
+        try {
+            dispatch(signOutStart());
+            const response = await fetch("/api/v1/user/signout", {
+                method: "POST",
+            });
+            const data = await response.json();
+            if (response.ok) {
+                navigate("/");
+                dispatch(signOutSuccess("User signout successfully"));
+            } else {
+                dispatch(signOutFailure(data.message));
+            }
+        } catch (error) {
+            dispatch(signOutFailure(error.message));
+        }
+    };
+
     return (
         <div className="max-w-lg mx-auto p-3 w-full">
             <h1 className="my-7 text-center font-semibold text-3xl">Profile</h1>
@@ -207,7 +228,9 @@ const DashProfile = () => {
                 <span className="cursor-pointer" onClick={() => setShowModal(true)}>
                     Delete Account
                 </span>
-                <span className="cursor-pointer">Sign Out</span>
+                <span className="cursor-pointer" onClick={handleSignOut}>
+                    Sign Out
+                </span>
             </div>
             {updateUserSuccess && (
                 <Alert color="success" className="mt-5">

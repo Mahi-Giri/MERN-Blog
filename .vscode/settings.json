@@ -11,6 +11,7 @@
         "reduxjs",
         "seterror",
         "Signin",
+        "signout",
         "Signup",
         "tailwindcss",
         "Zbth"
