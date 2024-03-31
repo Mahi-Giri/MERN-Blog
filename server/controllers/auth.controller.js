@@ -63,7 +63,7 @@ export const google = async (req, res, next) => {
         if (user) {
             const token = jwt.sign(
                 {
-                    id: user._id,
+                    _id: user._id,
                 },
                 process.env.JWT_SECRET
             );
@@ -91,7 +91,7 @@ export const google = async (req, res, next) => {
 
             const token = jwt.sign(
                 {
-                    id: newUser._id,
+                    _id: newUser._id,
                 },
                 process.env.JWT_SECRET
             );
