@@ -2,8 +2,9 @@ import { Alert, Button, TextInput } from "flowbite-react";
 import { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { getDownloadURL, getStorage, ref, uploadBytesResumable } from "firebase/storage";
+import { HiInformationCircle } from "react-icons/hi";
 import { app } from "../firebase";
-import { CircularProgressbar, CircularProgressbarWithChildren } from "react-circular-progressbar";
+import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 
 const DashProfile = () => {
@@ -96,7 +97,11 @@ const DashProfile = () => {
                     />
                 </div>
 
-                {imageFileUploadError && <Alert color="failure">{imageFileUploadError}</Alert>}
+                {imageFileUploadError && (
+                    <Alert color="failure" icon={HiInformationCircle}>
+                        {imageFileUploadError}{" "}
+                    </Alert>
+                )}
 
                 <TextInput type="text" id="username" placeholder="Username" defaultValue={currentUser.username} />
                 <TextInput type="email" id="email" placeholder="Email" defaultValue={currentUser.email} />

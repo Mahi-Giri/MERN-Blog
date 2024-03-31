@@ -1,6 +1,6 @@
 import { Footer } from "flowbite-react";
 import { Link } from "react-router-dom";
-import { BsFacebook, BsInstagram, BsTwitter, BsGithub, BsDribbble } from "react-icons/bs";
+import { BsFacebook, BsInstagram, BsGithub, BsDribbble, BsTwitterX } from "react-icons/bs";
 
 const FooterCom = () => {
     return (
@@ -29,8 +29,12 @@ const FooterCom = () => {
                                 >
                                     MERN-AUTH
                                 </Footer.Link>
-                                <Footer.Link href="/about" target="_blank" rel="noopener noreferrer">
-                                    Mahi's Blog
+                                <Footer.Link
+                                    href="https://github.com/Mahi-Giri/MERN-Blog"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                >
+                                    MERN-BLOG
                                 </Footer.Link>
                             </Footer.LinkGroup>
                         </div>
@@ -72,7 +76,7 @@ const FooterCom = () => {
                     <div className="flex gap-6 sm:mt-0 mt-4 sm:justify-center">
                         <Footer.Icon href="#" icon={BsFacebook} />
                         <Footer.Icon href="https://www.instagram.com/mahi.__.giri/" icon={BsInstagram} />
-                        <Footer.Icon href="https://twitter.com/Mahi_Giri_" icon={BsTwitter} />
+                        <Footer.Icon href="https://twitter.com/Mahi_Giri_" icon={BsTwitterX} />
                         <Footer.Icon href="https://github.com/Mahi-Giri/" icon={BsGithub} />
                         <Footer.Icon href="#" icon={BsDribbble} />
                     </div>
