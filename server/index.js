@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import { DB_NAME } from "./constant.js";
 import userRoute from "./routes/user.route.js";
 import authRoute from "./routes/auth.route.js";
+import cookieParser from "cookie-parser";
 
 dotenv.config();
 
@@ -14,6 +15,8 @@ mongoose.connect(`${process.env.MONGO_CONNECTION_STRING}/${DB_NAME}`).then(() =>
 const app = express();
 
 app.use(express.json());
+
+app.use(cookieParser());
 
 app.listen(8000, () => {
     console.log("Server is running on port 8000...");
