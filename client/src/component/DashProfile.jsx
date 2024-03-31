@@ -179,7 +179,7 @@ const DashProfile = () => {
 
                 {imageFileUploadError && (
                     <Alert color="failure" icon={HiInformationCircle}>
-                        {imageFileUploadError}{" "}
+                        {imageFileUploadError}
                     </Alert>
                 )}
 
