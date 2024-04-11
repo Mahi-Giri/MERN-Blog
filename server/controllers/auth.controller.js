@@ -40,6 +40,7 @@ export const signin = async (req, res, next) => {
         const token = jwt.sign(
             {
                 _id: validUser._id,
+                isAdmin: validUser.isAdmin,
             },
             process.env.JWT_SECRET
         );
@@ -64,6 +65,7 @@ export const google = async (req, res, next) => {
             const token = jwt.sign(
                 {
                     _id: user._id,
+                    isAdmin: user.isAdmin,
                 },
                 process.env.JWT_SECRET
             );
@@ -78,7 +80,7 @@ export const google = async (req, res, next) => {
             const hashedPassword = bcryptjs.hashSync(generatePassword, 10);
 
             const randomString = Math.random().toString(36).substring(7);
-            const usernameWithRandom = name + randomString;
+            const usernameWithRandom = name.split(" ").join("").toLowerCase() + randomString;
 
             const newUser = new User({
                 username: usernameWithRandom,
@@ -92,6 +94,7 @@ export const google = async (req, res, next) => {
             const token = jwt.sign(
                 {
                     _id: newUser._id,
+                    isAdmin: newUser.isAdmin,
                 },
                 process.env.JWT_SECRET
             );
