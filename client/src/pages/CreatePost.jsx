@@ -93,7 +93,7 @@ const CreatePost = () => {
                         className="flex-1"
                         onChange={(e) => setFormData({ ...formData, title: e.target.value })}
                     />
-                    <Select onChange={(e) => setFormData({ ...formData, catrgory: e.target.value })}>
+                    <Select onChange={(e) => setFormData({ ...formData, category: e.target.value })}>
                         <option value="uncategorized">Select a category</option>
                         <option value="javascript">JavaScript</option>
                         <option value="reactjs">React JS</option>
