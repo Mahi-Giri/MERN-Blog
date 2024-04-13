@@ -1,13 +1,13 @@
 import { Alert, Button, FileInput, Select, TextInput } from "flowbite-react";
-import { useState } from "react";
-import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css";
 import { getDownloadURL, getStorage, ref, uploadBytesResumable } from "firebase/storage";
-import { app } from "../firebase";
 import { CircularProgressbar } from "react-circular-progressbar";
-import "react-circular-progressbar/dist/styles.css";
 import { HiInformationCircle } from "react-icons/hi";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { app } from "../firebase";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
+import "react-circular-progressbar/dist/styles.css";
 
 const CreatePost = () => {
     const [file, setFile] = useState(null);
