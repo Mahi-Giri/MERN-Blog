@@ -7,6 +7,8 @@ import { Link } from "react-router-dom";
 const DashPost = () => {
     const { currentUser } = useSelector((store) => store.user);
     const [userPosts, setUserPosts] = useState([]);
+    const [showMore, setShowMore] = useState(true);
+
     useEffect(() => {
         const fetchPosts = async () => {
             try {
@@ -14,6 +16,7 @@ const DashPost = () => {
                 const data = await response.json();
                 if (response.ok) {
                     setUserPosts(data.post);
+                    if (data.post.length < 9) setShowMore(false);
                 }
             } catch (error) {
                 console.log(error.message);
@@ -21,6 +24,23 @@ const DashPost = () => {
         };
         if (currentUser.isAdmin) fetchPosts();
     }, [currentUser._id]);
+
+    const handleShowMore = async () => {
+        const startIndex = userPosts.length;
+        try {
+            const response = await fetch(`/api/v1/post/getPosts?userId=${currentUser._id}&startIndex=${startIndex}`);
+            const data = await response.json();
+            if (response.ok) {
+                setUserPosts((prev) => [...prev, ...data.post]);
+
+                if (data.post.length < 9) {
+                    setShowMore(false);
+                }
+            }
+        } catch (error) {
+            console.log(error.message);
+        }
+    };
 
     return (
         <div className="table-auto overflow-x-scroll md:mx-auto p-3 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-500">
@@ -38,7 +58,7 @@ const DashPost = () => {
                             </Table.HeadCell>
                         </Table.Head>
                         {userPosts.map((post) => (
-                            <Table.Body className="divide-y">
+                            <Table.Body key={post._id} className="divide-y">
                                 <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
                                     <Table.Cell>{new Date(post.updatedAt).toLocaleDateString()}</Table.Cell>
                                     <Table.Cell>
@@ -78,6 +98,11 @@ const DashPost = () => {
                             </Table.Body>
                         ))}
                     </Table>
+                    {showMore && (
+                        <button onClick={handleShowMore} className="w-full text-teal-500 self-center text-sm py-7 hover:font-semibold">
+                            Show more
+                        </button>
+                    )}
                 </>
             ) : (
                 <p>You don't have a Post</p>
