@@ -11,6 +11,7 @@ import PrivateRoute from "./component/PrivateRoute";
 import CreatePost from "./pages/CreatePost";
 import OnlyAdminPrivateRoute from "./component/OnlyAdminPrivateRoute";
 import UpdatePost from "./pages/UpdatePost";
+import PostPage from "./pages/PostPage";
 
 function App() {
     return (
@@ -25,13 +26,13 @@ function App() {
                     <Route path="/dashboard" element={<Dashboard />} />
                 </Route>
 
-                <Route element={<OnlyAdminPrivateRoute/>}>
+                <Route element={<OnlyAdminPrivateRoute />}>
                     <Route path="/create-post" element={<CreatePost />} />
                     <Route path="/update-post/:postId" element={<UpdatePost />} />
                 </Route>
 
-                <Route path="/create-post" element={<CreatePost />} />
                 <Route path="/project" element={<Projects />} />
+                <Route path="/post/:postSlug" element={<PostPage />} />
             </Routes>
             <FooterCom />
         </BrowserRouter>
