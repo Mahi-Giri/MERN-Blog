@@ -5,6 +5,7 @@ import { DB_NAME } from "./constant.js";
 import userRoute from "./routes/user.route.js";
 import authRoute from "./routes/auth.route.js";
 import postRoute from "./routes/post.route.js";
+import commentRoute from "./routes/comment.route.js";
 import cookieParser from "cookie-parser";
 
 dotenv.config();
@@ -26,6 +27,7 @@ app.listen(8000, () => {
 app.use("/api/v1/user", userRoute);
 app.use("/api/v1/auth", authRoute);
 app.use("/api/v1/post", postRoute);
+app.use("/api/v1/comment", commentRoute);
 
 app.use((err, req, res, next) => {
     const statusCode = err.statusCode || 500;
