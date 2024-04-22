@@ -1,8 +1,9 @@
-import { Alert, Button, Textarea } from "flowbite-react";
+import { Alert, Button, Modal, Textarea } from "flowbite-react";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import Comments from "./Comments";
+import { HiOutlineExclamationCircle } from "react-icons/hi";
 
 const CommentSection = ({ postId }) => {
     const { currentUser } = useSelector((store) => store.user);
@@ -10,6 +11,8 @@ const CommentSection = ({ postId }) => {
     const [error, setError] = useState(null);
     const [comments, setComments] = useState([]);
     const navigate = useNavigate();
+    const [showModal, setShowModal] = useState(false);
+    const [commentToDelete, setCommentToDelete] = useState(null);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -34,9 +37,8 @@ const CommentSection = ({ postId }) => {
             if (response.ok) {
                 setComment("");
                 setError(null);
-                setComments([...comments, data]);
+                setComments([data, ...comments]);
             }
-            setError(null);
         } catch (error) {
             setError(error.message);
         }
@@ -67,10 +69,8 @@ const CommentSection = ({ postId }) => {
 
             const response = await fetch(`/api/v1/comment/likeComment/${commentID}`, {
                 method: "PUT",
-                headers: {
-                    "Content-Type": "application/json",
-                },
             });
+
             if (response.ok) {
                 const data = await response.json();
                 setComments(
@@ -91,7 +91,29 @@ const CommentSection = ({ postId }) => {
     };
 
     const handleEdit = async (comment, editedContent) => {
-        setComments(comment.map((c) => (c._id === comment._id ? { ...c, content: editedContent } : c)));
+        // setComments(comment.map((c) => (c._id === comment._id ? { ...c, content: editedContent } : c)));
+        setComments(comments.map((c) => (c._id === comment._id ? { ...c, content: editedContent } : c)));
+    };
+
+    const handleDelete = async (commentID) => {
+        setShowModal(false);
+        try {
+            if (!currentUser) {
+                navigate("/signin");
+                return;
+            }
+
+            const response = await fetch(`/api/v1/comment/deleteComment/${commentID}`, {
+                method: "DELETE",
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                setComments(comments.filter((comment) => comment._id !== commentID));
+            }
+        } catch (error) {
+            console.log(error.message);
+        }
     };
 
     return (
@@ -150,10 +172,38 @@ const CommentSection = ({ postId }) => {
                         </div>
                     </div>
                     {comments.map((comment) => (
-                        <Comments key={comment._id} comment={comment} onLike={handleLike} onEdit={handleEdit}/>
+                        <Comments
+                            key={comment._id}
+                            comment={comment}
+                            onLike={handleLike}
+                            onEdit={handleEdit}
+                            onDelete={(commentID) => {
+                                setShowModal(true);
+                                setCommentToDelete(commentID);
+                            }}
+                        />
                     ))}
                 </>
             )}
+            <Modal show={showModal} onClose={() => setShowModal(false)} popup size="md">
+                <Modal.Header />
+                <Modal.Body>
+                    <div className="text-center">
+                        <HiOutlineExclamationCircle className="h-14 w-14 text-gray-400 dark:text-gray-200 mb-4 mx-auto" />
+                        <h3 className="mb-5 text-lg text-gray-500 dark:text-gray-400">
+                            Are you sure want to delete this comment?
+                        </h3>
+                        <div className="flex justify-center gap-7">
+                            <Button color="failure" onClick={() => handleDelete(commentToDelete)}>
+                                Yes I'm sure
+                            </Button>
+                            <Button color="gray" onClick={() => setShowModal(false)}>
+                                No, Cancel
+                            </Button>
+                        </div>
+                    </div>
+                </Modal.Body>
+            </Modal>
         </div>
     );
 };
