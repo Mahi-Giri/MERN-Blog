@@ -8,6 +8,7 @@ import { app } from "../firebase";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import "react-circular-progressbar/dist/styles.css";
+import { backendURL } from "../config";
 
 const CreatePost = () => {
     const [file, setFile] = useState(null);
@@ -58,7 +59,7 @@ const CreatePost = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await fetch("/api/v1/post/create", {
+            const response = await fetch(`${backendURL}/api/v1/post/create`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

@@ -23,7 +23,7 @@ const DashSidebar = () => {
     const handleSignOut = async () => {
         try {
             dispatch(signOutStart());
-            const response = await fetch("/api/v1/user/signout", {
+            const response = await fetch(`${backendURL}/api/v1/user/signout`, {
                 method: "POST",
             });
             const data = await response.json();

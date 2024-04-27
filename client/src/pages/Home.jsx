@@ -3,13 +3,14 @@ import CallToAction from "../component/CallToAction";
 import { useState } from "react";
 import { useEffect } from "react";
 import PostCard from "../component/PostCard";
+import { backendURL } from "../config";
 
 const Home = () => {
     const [posts, setPosts] = useState([]);
 
     useEffect(() => {
         const fetchPost = async () => {
-            const response = await fetch(`/api/v1/post/getPosts`);
+            const response = await fetch(`${backendURL}/api/v1/post/getPosts`);
             const data = await response.json();
             if (response.ok) {
                 setPosts(data.post);

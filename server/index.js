@@ -8,6 +8,7 @@ import postRoute from "./routes/post.route.js";
 import commentRoute from "./routes/comment.route.js";
 import cookieParser from "cookie-parser";
 import path from "path";
+import cors from "cors";
 
 dotenv.config();
 
@@ -18,6 +19,11 @@ mongoose.connect(`${process.env.MONGO_CONNECTION_STRING}/${DB_NAME}`).then(() =>
 const __dirname = path.resolve();
 
 const app = express();
+
+app.use(cors({
+    origin: "*",
+    credentials: true,
+}));
 
 app.use(express.json());
 

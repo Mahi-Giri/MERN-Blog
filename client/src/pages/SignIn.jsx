@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { signinFailure, signinStart, signinSuccess } from "../redux/userSlice";
 import OAuth from "../component/OAuth";
+import { backendURL } from "../config";
 
 const SignIn = () => {
     const [formData, setFormData] = useState({});
@@ -26,7 +27,7 @@ const SignIn = () => {
 
         try {
             dispatch(signinStart());
-            const response = await fetch("/api/v1/auth/signin", {
+            const response = await fetch(`${backendURL}/api/v1/auth/signin`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

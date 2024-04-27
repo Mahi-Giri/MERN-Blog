@@ -101,7 +101,7 @@ const DashProfile = () => {
 
         try {
             dispatch(updateStart());
-            const response = await fetch(`/api/v1/user/update/${currentUser._id}`, {
+            const response = await fetch(`${backendURL}/api/v1/user/update/${currentUser._id}`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
@@ -128,7 +128,7 @@ const DashProfile = () => {
         try {
             setShowModal(false);
             dispatch(deleteAccountStart());
-            const response = await fetch(`/api/v1/user/delete/${currentUser._id}`, {
+            const response = await fetch(`${backendURL}/api/v1/user/delete/${currentUser._id}`, {
                 method: "DELETE",
             });
             const data = await response.json();
@@ -146,7 +146,7 @@ const DashProfile = () => {
     const handleSignOut = async () => {
         try {
             dispatch(signOutStart());
-            const response = await fetch("/api/v1/user/signout", {
+            const response = await fetch(`${backendURL}/api/v1/user/signout`, {
                 method: "POST",
             });
             const data = await response.json();

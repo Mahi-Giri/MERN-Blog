@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { HiOutlineUserGroup, HiArrowNarrowUp, HiAnnotation, HiDocumentText } from "react-icons/hi";
 import { Button, Table } from "flowbite-react";
 import { Link } from "react-router-dom";
+import { backendURL } from "../config";
 
 const DashboarComp = () => {
     const [user, setUser] = useState([]);
@@ -20,7 +21,7 @@ const DashboarComp = () => {
     useEffect(() => {
         const fetchUser = async () => {
             try {
-                const response = await fetch(`/api/v1/user/getUsers?limit=5`);
+                const response = await fetch(`${backendURL}/api/v1/user/getUsers?limit=5`);
                 const data = await response.json();
                 if (response.ok) {
                     setUser(data.users);
@@ -34,7 +35,7 @@ const DashboarComp = () => {
 
         const fetchPosts = async () => {
             try {
-                const response = await fetch(`/api/v1/post/getPosts?limit=5`);
+                const response = await fetch(`${backendURL}/api/v1/post/getPosts?limit=5`);
                 const data = await response.json();
                 if (response.ok) {
                     setPosts(data.post);
@@ -48,7 +49,7 @@ const DashboarComp = () => {
 
         const fetchComments = async () => {
             try {
-                const response = await fetch(`/api/v1/comment/getComments?limit=5`);
+                const response = await fetch(`${backendURL}/api/v1/comment/getComments?limit=5`);
                 const data = await response.json();
                 if (response.ok) {
                     setComments(data.comments);

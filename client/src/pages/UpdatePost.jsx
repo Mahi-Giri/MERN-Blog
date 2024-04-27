@@ -9,6 +9,7 @@ import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import "react-circular-progressbar/dist/styles.css";
 import { useSelector } from "react-redux";
+import { backendURL } from "../config";
 
 const UpdatePost = () => {
     const [file, setFile] = useState(null);
@@ -23,7 +24,7 @@ const UpdatePost = () => {
     useEffect(() => {
         try {
             const fetchPost = async () => {
-                const response = await fetch(`/api/v1/post/getPosts?postId=${postId}`);
+                const response = await fetch(`${backendURL}/api/v1/post/getPosts?postId=${postId}`);
                 const data = await response.json();
                 if (!response.ok) {
                     console.log(data.message);
@@ -80,7 +81,7 @@ const UpdatePost = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await fetch(`/api/v1/post/updatePost/${formData._id}/${currentUser._id}`, {
+            const response = await fetch(`${backendURL}/api/v1/post/updatePost/${formData._id}/${currentUser._id}`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",

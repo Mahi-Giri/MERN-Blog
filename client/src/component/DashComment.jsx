@@ -15,7 +15,7 @@ const DashComment = () => {
     useEffect(() => {
         const fetchComments = async () => {
             try {
-                const response = await fetch(`/api/v1/comment/getComments`);
+                const response = await fetch(`${backendURL}/api/v1/comment/getComments`);
                 const data = await response.json();
                 if (response.ok) {
                     setComments(data.comments);
@@ -31,7 +31,7 @@ const DashComment = () => {
     const handleShowMore = async () => {
         const startIndex = comments.length;
         try {
-            const response = await fetch(`/api/v1/comment/getComments?startIndex=${startIndex}`);
+            const response = await fetch(`${backendURL}/api/v1/comment/getComments?startIndex=${startIndex}`);
             const data = await response.json();
             if (response.ok) {
                 setComments((prev) => [...prev, ...data.comments]);
@@ -48,7 +48,7 @@ const DashComment = () => {
     const handleDeleteComment = async () => {
         setShowModal(false);
         try {
-            const response = await fetch(`/api/v1/comment/deleteComment/${commentIdToDelete}`, {
+            const response = await fetch(`${backendURL}/api/v1/comment/deleteComment/${commentIdToDelete}`, {
                 method: "DELETE",
             });
 

@@ -4,6 +4,7 @@ import { Button, Spinner } from "flowbite-react";
 import CallToAction from "../component/CallToAction";
 import CommentSection from "../component/CommentSection";
 import PostCard from "../component/PostCard";
+import { backendURL } from "../config";
 
 const PostPage = () => {
     const { postSlug } = useParams();
@@ -16,7 +17,7 @@ const PostPage = () => {
         const fetchPost = async () => {
             try {
                 setLoading(true);
-                const response = await fetch(`/api/v1/post/getPosts?slug${postSlug}`);
+                const response = await fetch(`${backendURL}/api/v1/post/getPosts?slug${postSlug}`);
                 const data = await response.json();
                 if (!response.ok) {
                     setError(true);
@@ -38,7 +39,7 @@ const PostPage = () => {
     useEffect(() => {
         try {
             const fetchRecentPost = async () => {
-                const response = await fetch("/api/v1/post/getPosts?limit=3");
+                const response = await fetch(`${backendURL}/api/v1/post/getPosts?limit=3`);
                 const data = await response.json();
                 if (response.ok) {
                     setRecentPosts(data.post);

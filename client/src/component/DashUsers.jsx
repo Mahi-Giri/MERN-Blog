@@ -15,7 +15,7 @@ const DashUsers = () => {
     useEffect(() => {
         const fetchUsers = async () => {
             try {
-                const response = await fetch(`/api/v1/user/getUsers`);
+                const response = await fetch(`${backendURL}/api/v1/user/getUsers`);
                 const data = await response.json();
                 if (response.ok) {
                     setUsers(data.users);
@@ -31,7 +31,7 @@ const DashUsers = () => {
     const handleShowMore = async () => {
         const startIndex = users.length;
         try {
-            const response = await fetch(`/api/v1/user/getUsers?startIndex=${startIndex}`);
+            const response = await fetch(`${backendURL}/api/v1/user/getUsers?startIndex=${startIndex}`);
             const data = await response.json();
             if (response.ok) {
                 setUsers((prev) => [...prev, ...data.users]);
@@ -47,7 +47,7 @@ const DashUsers = () => {
 
     const handleDeleteUser = async () => {
         try {
-            const response = await fetch(`/api/v1/user/delete/${userIdToDelete}`, {
+            const response = await fetch(`${backendURL}/api/v1/user/delete/${userIdToDelete}`, {
                 method: "DELETE",
             });
             

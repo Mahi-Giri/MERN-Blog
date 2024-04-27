@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import Comments from "./Comments";
 import { HiOutlineExclamationCircle } from "react-icons/hi";
+import { backendURL } from "../config";
 
 const CommentSection = ({ postId }) => {
     const { currentUser } = useSelector((store) => store.user);
@@ -20,7 +21,7 @@ const CommentSection = ({ postId }) => {
         if (comment.length > 200) return;
 
         try {
-            const response = await fetch("/api/v1/comment/create", {
+            const response = await fetch(`${backendURL}/api/v1/comment/create`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -47,7 +48,7 @@ const CommentSection = ({ postId }) => {
     useEffect(() => {
         const fetchComments = async () => {
             try {
-                const response = await fetch(`/api/v1/comment/getPostComment/${postId}`);
+                const response = await fetch(`${backendURL}/api/v1/comment/getPostComment/${postId}`);
                 if (response.ok) {
                     const data = await response.json();
                     setComments(data);
@@ -67,7 +68,7 @@ const CommentSection = ({ postId }) => {
                 return;
             }
 
-            const response = await fetch(`/api/v1/comment/likeComment/${commentID}`, {
+            const response = await fetch(`${backendURL}/api/v1/comment/likeComment/${commentID}`, {
                 method: "PUT",
             });
 
@@ -103,7 +104,7 @@ const CommentSection = ({ postId }) => {
                 return;
             }
 
-            const response = await fetch(`/api/v1/comment/deleteComment/${commentID}`, {
+            const response = await fetch(`${backendURL}/api/v1/comment/deleteComment/${commentID}`, {
                 method: "DELETE",
             });
 

@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import PostCard from "../component/PostCard";
+import { backendURL } from "../config";
 
 const Search = () => {
     const [sidebarData, setSidebarData] = useState({
@@ -35,7 +36,7 @@ const Search = () => {
         const fetchPosts = async () => {
             setLoading(true);
             const searchQuery = urlParams.toString();
-            const response = await fetch(`/api/v1/post/getPosts?${searchQuery}`);
+            const response = await fetch(`${backendURL}/api/v1/post/getPosts?${searchQuery}`);
 
             if (!response.ok) {
                 setLoading(false);
@@ -89,7 +90,7 @@ const Search = () => {
         urlParams.set("startIndex", startIndex);
         const searchQuery = urlParams.toString();
 
-        const response = await fetch(`/api/v1/post/getPosts?${searchQuery}`);
+        const response = await fetch(`${backendURL}/api/v1/post/getPosts?${searchQuery}`);
         if (!response.ok) return;
 
         if (response.ok) {

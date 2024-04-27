@@ -4,6 +4,7 @@ import moment from "moment";
 import { FaThumbsUp } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import { Button, Textarea } from "flowbite-react";
+import { backendURL } from "../config";
 
 const Comments = ({ comment, onLike, onEdit, onDelete }) => {
     const [user, setUser] = useState({});
@@ -14,7 +15,7 @@ const Comments = ({ comment, onLike, onEdit, onDelete }) => {
     useEffect(() => {
         const getUser = async () => {
             try {
-                const response = await fetch(`/api/v1/user/${comment.userId}`);
+                const response = await fetch(`${backendURL}/api/v1/user/${comment.userId}`);
                 if (response.ok) {
                     const data = await response.json();
                     setUser(data);
@@ -33,7 +34,7 @@ const Comments = ({ comment, onLike, onEdit, onDelete }) => {
 
     const handleSave = async () => {
         try {
-            const response = await fetch(`/api/v1/comment/editComment/${comment._id}`, {
+            const response = await fetch(`${backendURL}/api/v1/comment/editComment/${comment._id}`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
