@@ -18,6 +18,7 @@ import {
     updateSuccess,
 } from "../redux/userSlice";
 import { Link, useNavigate } from "react-router-dom";
+import { backendURL } from "../config";
 
 const DashProfile = () => {
     const { currentUser, error, loading } = useSelector((store) => store.user);

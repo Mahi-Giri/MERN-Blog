@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { changeTheme } from "../redux/themeSlice";
 import { signOutFailure, signOutStart, signOutSuccess } from "../redux/userSlice";
 import { useEffect, useState } from "react";
+import { backendURL } from "../config";
 
 const Header = () => {
     const [searchTerm, setSearchTerm] = useState("");

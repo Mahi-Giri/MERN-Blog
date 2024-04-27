@@ -4,6 +4,7 @@ import { HiUser, HiArrowSmRight, HiDocumentText, HiOutlineUserGroup, HiAnnotatio
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { signOutFailure, signOutStart, signOutSuccess } from "../redux/userSlice";
 import { useDispatch, useSelector } from "react-redux";
+import { backendURL } from "../config";
 
 const DashSidebar = () => {
     const location = useLocation();

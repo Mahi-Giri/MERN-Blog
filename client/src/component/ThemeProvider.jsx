@@ -1,7 +1,5 @@
 import { useSelector } from "react-redux";
 
-useSelector;
-
 const ThemeProvider = ({ children }) => {
     const { theme } = useSelector((store) => store.theme);
 
