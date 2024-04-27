@@ -5,17 +5,25 @@ import { FaMoon, FaSun } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { changeTheme } from "../redux/themeSlice";
 import { signOutFailure, signOutStart, signOutSuccess } from "../redux/userSlice";
+import { useEffect, useState } from "react";
 
 const Header = () => {
-    const path = useLocation().pathname;
-
+    const [searchTerm, setSearchTerm] = useState("");
     const { currentUser } = useSelector((Store) => Store.user);
-
     const { theme } = useSelector((Store) => Store.theme);
-
+    const path = useLocation().pathname;
     const dispatch = useDispatch();
-
     const navigate = useNavigate();
+    const location = useLocation();
+
+    useEffect(() => {
+        const urlParam = new URLSearchParams(location.search);
+        const searchTermFromUrl = urlParam.get("searchTerm");
+
+        if (searchTermFromUrl) {
+            setSearchTerm(searchTermFromUrl);
+        }
+    }, [location.search]);
 
     const handleSignOut = async () => {
         try {
@@ -35,6 +43,14 @@ const Header = () => {
         }
     };
 
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        const urlParams = new URLSearchParams(location.search);
+        urlParams.set("searchTerm", searchTerm);
+        const searchQuery = urlParams.toString();
+        navigate(`/search?${searchQuery}`);
+    };
+
     return (
         <Navbar className="border-b-2 ">
             <Link to="/" className="self-center whitespace-nowrap text-sm sm:text-xl font-semibold dark:text-white">
@@ -43,12 +59,14 @@ const Header = () => {
                 </span>
                 Blog
             </Link>
-            <form>
+            <form onSubmit={handleSubmit}>
                 <TextInput
                     type="text"
                     placeholder="Search..."
                     rightIcon={AiOutlineSearch}
                     className="hidden lg:inline"
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
                 />
             </form>
             <Button className="w-12 h-10 lg:hidden" color="gray" pill>
