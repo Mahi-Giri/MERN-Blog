@@ -17,7 +17,6 @@ import Search from "./pages/Search";
 import { backendURL } from "./config";
 
 function App() {
-    console.log(backendURL);
     return (
         <BrowserRouter>
             <ScrollToTop />
