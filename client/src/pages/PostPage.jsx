@@ -9,21 +9,23 @@ const PostPage = () => {
     const { postSlug } = useParams();
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
-    const [post, setPosts] = useState(null);
+    const [post, setPost] = useState(null);
     const [recentPosts, setRecentPosts] = useState(null);
+    // console.log(post);
 
     useEffect(() => {
         const fetchPost = async () => {
             try {
                 setLoading(true);
-                const response = await fetch(`/api/v1/post/getPosts?slug${postSlug}`);
+                const response = await fetch(`/api/v1/post/getPosts?slug=${postSlug}`);
                 const data = await response.json();
+                console.log(data);
                 if (!response.ok) {
                     setError(true);
                     setLoading(false);
                     return;
                 } else {
-                    setPosts(data.post[0]);
+                    setPost(data.post[0]);
                     setLoading(false);
                     setError(false);
                 }
